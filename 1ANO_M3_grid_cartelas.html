@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cartelas M3 — O feio também foi feito · Artes 1º ano</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --papel:#F2F0EC;
+    --superficie:#FFFFFF;
+    --tinta:#16303A;
+    --tinta-fraca:#5A6F76;
+    --linha:#C9CFCD;
+    --marca:#1F6F5C;
+    --marca-clara:#E2EFEA;
+    --foco:#B4520A;
+    --cel-min:260px;
+  }
+  [data-modo="projecao"]{
+    --papel:#0E1B20;
+    --superficie:#152A31;
+    --tinta:#F2F0EC;
+    --tinta-fraca:#A9BCC2;
+    --linha:#2E4A53;
+    --marca:#6FD2B4;
+    --marca-clara:#1D3B43;
+    --foco:#F5A623;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--papel);
+    color:var(--tinta);
+    font-family:'Atkinson Hyperlegible',Verdana,system-ui,sans-serif;
+    font-size:18px;
+    line-height:1.5;
+    -webkit-text-size-adjust:100%;
+  }
+  .envelope-pagina{max-width:1400px;margin:0 auto;padding:24px 20px 64px}
+
+  /* ---------- topo ---------- */
+  .topo{
+    display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;
+    justify-content:space-between;
+    border-bottom:3px solid var(--tinta);
+    padding-bottom:14px;margin-bottom:20px;
+  }
+  .topo h1{font-size:1.45rem;margin:0;line-height:1.2;font-weight:700}
+  .topo p{margin:4px 0 0;color:var(--tinta-fraca);font-size:.95rem}
+  .controles{display:flex;flex-wrap:wrap;gap:8px}
+
+  button{
+    font:inherit;font-size:.95rem;
+    background:var(--superficie);color:var(--tinta);
+    border:2px solid var(--linha);border-radius:2px;
+    padding:8px 14px;cursor:pointer;
+  }
+  button:hover{border-color:var(--tinta)}
+  button:focus-visible{outline:3px solid var(--foco);outline-offset:2px}
+  button[aria-pressed="true"],button.ativo{
+    background:var(--tinta);color:var(--papel);border-color:var(--tinta);font-weight:700;
+  }
+
+  /* ---------- abas de cartela ---------- */
+  .abas{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+  .abas button{min-width:96px}
+
+  .instrucao{
+    background:var(--superficie);
+    border:2px solid var(--linha);
+    border-left:10px solid var(--marca);
+    padding:14px 18px;margin:14px 0 22px;
+  }
+  .instrucao h2{margin:0 0 8px;font-size:1.05rem}
+  .instrucao ol{margin:0;padding-left:22px}
+  .instrucao li{margin-bottom:4px}
+  .contador{
+    margin-top:10px;padding-top:10px;border-top:1px solid var(--linha);
+    font-weight:700;display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+  }
+  .contador .selecao{color:var(--marca)}
+
+  /* ---------- grade ---------- */
+  .grade{
+    display:grid;gap:18px;
+    grid-template-columns:repeat(auto-fit,minmax(var(--cel-min),1fr));
+  }
+  .placa{
+    background:var(--superficie);
+    border:2px solid var(--linha);
+    display:flex;flex-direction:column;
+    text-align:left;padding:0;cursor:pointer;
+    border-radius:0;
+  }
+  .placa:hover{border-color:var(--tinta)}
+  .placa:focus-visible{outline:3px solid var(--foco);outline-offset:2px}
+  .placa[aria-pressed="true"]{
+    border-color:var(--marca);border-width:4px;background:var(--marca-clara);
+  }
+  .placa-topo{
+    display:flex;align-items:baseline;gap:10px;
+    padding:10px 12px 8px;border-bottom:1px solid var(--linha);
+  }
+  .codigo{font-size:1.6rem;font-weight:700;letter-spacing:.02em}
+  .estado{font-size:.9rem;color:var(--marca);font-weight:700}
+  .placa[aria-pressed="false"] .estado{visibility:hidden}
+  .moldura{
+    background:var(--papel);
+    display:flex;align-items:center;justify-content:center;
+    min-height:190px;padding:10px;
+  }
+  .moldura img{max-width:100%;max-height:340px;display:block}
+  .ausente{
+    color:var(--tinta-fraca);font-size:.9rem;text-align:center;
+    padding:26px 12px;border:2px dashed var(--linha);width:100%;
+  }
+  .ficha{padding:10px 12px 14px}
+  .ficha .titulo{font-weight:700;font-size:1.05rem;display:block;margin-bottom:2px}
+  .ficha .autor{display:block}
+  .ficha .acervo{display:block;color:var(--tinta-fraca);font-size:.88rem;margin-top:4px}
+
+  /* ---------- painel de imagens ---------- */
+  .painel{margin-top:34px;border-top:2px solid var(--linha);padding-top:16px}
+  .painel summary{cursor:pointer;font-weight:700;font-size:1.05rem;padding:6px 0}
+  .painel summary:focus-visible{outline:3px solid var(--foco);outline-offset:2px}
+  .painel p{max-width:70ch}
+  textarea{
+    width:100%;min-height:170px;font:inherit;font-size:.9rem;
+    padding:10px;border:2px solid var(--linha);background:var(--superficie);color:var(--tinta);
+  }
+  textarea:focus-visible{outline:3px solid var(--foco);outline-offset:1px}
+  .aviso{margin-top:10px;font-weight:700;color:var(--marca);min-height:1.4em}
+  code{background:var(--marca-clara);padding:1px 5px}
+
+  .rodape{margin-top:30px;color:var(--tinta-fraca);font-size:.88rem;max-width:80ch}
+
+  /* ---------- impressão ---------- */
+  @media print{
+    body{background:#fff;color:#000;font-size:12pt}
+    .controles,.abas,.painel,.rodape,.contador{display:none !important}
+    .grade{grid-template-columns:repeat(2,1fr)}
+    .placa{border:1px solid #000;break-inside:avoid}
+    .moldura img{max-height:180px}
+  }
+  @media (prefers-reduced-motion:no-preference){*{transition:none}}
+</style>
+</head>
+<body data-modo="tela">
+
+<main class="envelope-pagina">
+
+  <div class="topo">
+    <div>
+      <h1>Cartelas de obras — Módulo 3 · O feio também foi feito</h1>
+      <p>Artes · 1º ano · Unidade 9 · EMED Administração</p>
+    </div>
+    <div class="controles">
+      <button id="btn-modo" aria-pressed="false">Modo projeção</button>
+      <button id="btn-copiar">Copiar seleção</button>
+      <button id="btn-limpar">Limpar seleção</button>
+      <button id="btn-imprimir">Imprimir cartela</button>
+    </div>
+  </div>
+
+  <nav class="abas" id="abas" aria-label="Escolher cartela"></nav>
+
+  <div class="instrucao">
+    <h2>O que o grupo faz agora</h2>
+    <ol>
+      <li>Olhe as seis obras da sua cartela. Nenhuma vem classificada.</li>
+      <li>Escolha três. Toque na obra para marcar; toque de novo para desmarcar.</li>
+      <li>Anote os três códigos na Ficha de Curadoria.</li>
+      <li>Dê um título à exposição formada por essas três.</li>
+      <li>Escreva o texto de parede: quatro linhas dizendo por que essas três conversam entre si.</li>
+    </ol>
+    <div class="contador">
+      <span>Cartela <span id="cartela-atual">A</span></span>
+      <span class="selecao">Escolhidas: <span id="n-escolhidas">0</span> de 3 — <span id="lista-escolhidas">nenhuma</span></span>
+    </div>
+  </div>
+
+  <div class="grade" id="grade"></div>
+
+  <details class="painel">
+    <summary>Carregar as imagens</summary>
+    <p>Duas formas. Use uma só.</p>
+    <p><strong>Arquivos locais.</strong> Crie uma pasta <code>img</code> ao lado deste arquivo e salve as 24 imagens com o nome do código: <code>A1.jpg</code>, <code>A2.jpg</code> … <code>D6.jpg</code>. Recarregue a página.</p>
+    <p><strong>Endereços colados.</strong> Cole abaixo uma linha por obra, no formato <code>A1 https://…</code>. Vale para qualquer cartela de uma vez. Fica salvo neste navegador.</p>
+    <label for="urls">Lista de endereços</label>
+    <textarea id="urls" placeholder="A1 https://upload.wikimedia.org/...jpg&#10;A2 https://...jpg"></textarea>
+    <div class="controles" style="margin-top:10px">
+      <button id="btn-aplicar">Aplicar endereços</button>
+      <button id="btn-apagar-urls">Apagar endereços salvos</button>
+    </div>
+    <p class="aviso" id="aviso" role="status"></p>
+    <p>Todas as 24 obras estão em domínio público. Fontes de acesso aberto: Wikimedia Commons e os acervos dos museus citados em cada ficha.</p>
+  </details>
+
+  <p class="rodape">Cada cartela é usada por dois grupos. Dois grupos com as mesmas seis obras produzem curadorias diferentes — essa comparação é o argumento do módulo, não um efeito colateral.</p>
+
+</main>
+
+<script>
+const CARTELAS = {
+  A:[
+    {c:"A1",t:"Doríforo",a:"Policleto (cópia romana)",y:"séc. V a.C.",m:"Museu Arqueológico Nacional de Nápoles",alt:"Escultura em mármore de homem nu em pé, peso sobre uma perna, ombros e quadris em contraposição."},
+    {c:"A2",t:"A Primeira Missa no Brasil",a:"Vitor Meireles",y:"1860",m:"Museu Nacional de Belas Artes, Rio de Janeiro",alt:"Clareira na mata com altar improvisado ao centro, padre e portugueses; indígenas sentados em volta, observando."},
+    {c:"A3",t:"Caminhante sobre o mar de névoa",a:"Caspar David Friedrich",y:"c. 1818",m:"Hamburger Kunsthalle",alt:"Homem de costas no alto de uma rocha, diante de um mar de névoa que cobre o vale; a paisagem ocupa quase todo o quadro."},
+    {c:"A4",t:"A Balsa da Medusa",a:"Théodore Géricault",y:"1818-19",m:"Louvre",alt:"Náufragos amontoados numa jangada em mar agitado; alguns mortos, um deles acena um pano em direção ao horizonte."},
+    {c:"A5",t:"Saturno devorando um filho",a:"Francisco de Goya",y:"1819-23",m:"Museo del Prado",alt:"Figura de olhos arregalados no escuro, segurando e mordendo um corpo humano."},
+    {c:"A6",t:"O Triunfo da Morte",a:"Pieter Bruegel, o Velho",y:"c. 1562",m:"Museo del Prado",alt:"Planície devastada tomada por exércitos de esqueletos que capturam pessoas; ao fundo, fumaça e navios naufragando."}
+  ],
+  B:[
+    {c:"B1",t:"O Nascimento de Vênus",a:"Sandro Botticelli",y:"c. 1485",m:"Galleria degli Uffizi",alt:"Mulher nua em pé sobre uma concha no mar, cabelos longos ao vento; figuras aladas de um lado, mulher com manto do outro."},
+    {c:"B2",t:"O Juramento dos Horácios",a:"Jacques-Louis David",y:"1784",m:"Louvre",alt:"Três homens estendem os braços para espadas erguidas por um quarto; à direita, mulheres sentadas choram."},
+    {c:"B3",t:"O mar de gelo",a:"Caspar David Friedrich",y:"1823-24",m:"Hamburger Kunsthalle",alt:"Placas de gelo empilhadas em ângulos agudos; entre elas, o casco de um navio esmagado, quase invisível."},
+    {c:"B4",t:"Navio negreiro",a:"J. M. W. Turner",y:"1840",m:"Museum of Fine Arts, Boston",alt:"Mar em vermelho e laranja sob céu de tempestade; no canto inferior, correntes, pernas humanas e peixes na água."},
+    {c:"B5",t:"O sono da razão produz monstros (Capricho 43)",a:"Francisco de Goya",y:"1799",m:"Museo del Prado",alt:"Gravura em preto e branco: homem adormecido sobre uma mesa, cercado por corujas e morcegos que saem do escuro."},
+    {c:"B6",t:"A Velha Duquesa",a:"Quentin Matsys",y:"c. 1513",m:"National Gallery, Londres",alt:"Retrato de mulher idosa com traços exagerados, testa alta e boca larga, vestida com roupas de corte."}
+  ],
+  C:[
+    {c:"C1",t:"A Escola de Atenas",a:"Rafael",y:"1509-11",m:"Palácios Apostólicos, Vaticano",alt:"Grande salão abobadado com dezenas de filósofos; ao centro, dois homens caminham, um aponta para cima, outro para a frente."},
+    {c:"C2",t:"A Grande Odalisca",a:"Jean-Auguste-Dominique Ingres",y:"1814",m:"Louvre",alt:"Mulher nua reclinada de costas sobre tecidos, corpo alongado, olhando por cima do ombro."},
+    {c:"C3",t:"A Liberdade guiando o povo",a:"Eugène Delacroix",y:"1830",m:"Louvre",alt:"Mulher com bandeira avança sobre uma barricada com corpos caídos, seguida por homens armados."},
+    {c:"C4",t:"O Três de Maio de 1808",a:"Francisco de Goya",y:"1814",m:"Museo del Prado",alt:"Pelotão aponta fuzis para um homem de camisa branca com os braços erguidos, à noite, sob um lampião no chão."},
+    {c:"C5",t:"O Jardim das Delícias — painel do Inferno",a:"Hieronymus Bosch",y:"c. 1490-1510",m:"Museo del Prado",alt:"Cena noturna com figuras híbridas, instrumentos musicais gigantes usados como tortura, construções em chamas ao fundo."},
+    {c:"C6",t:"Um enterro em Ornans",a:"Gustave Courbet",y:"1849-50",m:"Musée d'Orsay",alt:"Tela larga com dezenas de moradores comuns em volta de uma cova aberta, em tamanho natural, sem figura central."}
+  ],
+  D:[
+    {c:"D1",t:"Amor e Psiquê",a:"Antonio Canova",y:"1787-93",m:"Louvre",alt:"Escultura em mármore: figura alada inclina-se sobre uma mulher deitada, os dois quase se tocando."},
+    {c:"D2",t:"Independência ou Morte",a:"Pedro Américo",y:"1888",m:"Museu Paulista (Ipiranga)",alt:"Homem a cavalo ergue a espada à frente de um grupo montado, em estrada de terra, com carro de bois ao lado."},
+    {c:"D3",t:"A Morte de Sardanapalo",a:"Eugène Delacroix",y:"1827",m:"Louvre",alt:"Rei reclinado em leito vermelho observa, sem reagir, a matança de mulheres e cavalos ao redor."},
+    {c:"D4",t:"Caipira picando fumo",a:"Almeida Júnior",y:"1893",m:"Pinacoteca de São Paulo",alt:"Homem descalço encostado numa parede corta fumo com uma faca; roupa simples, luz vindo do lado."},
+    {c:"D5",t:"Crucificação — Retábulo de Isenheim",a:"Matthias Grünewald",y:"1512-16",m:"Musée Unterlinden, Colmar",alt:"Cristo crucificado com o corpo coberto de chagas e dedos retorcidos; figuras ao lado, fundo escuro."},
+    {c:"D6",t:"Gargantua",a:"Honoré Daumier",y:"1831 · litografia censurada",m:"Publicada em La Caricature",alt:"Litografia: figura gigante sentada num trono recebe, por uma rampa, sacos carregados por uma multidão pequena."}
+  ]
+};
+
+const CHAVE_URLS = "m3-urls";
+const CHAVE_CARTELA = "m3-cartela";
+let cartelaAtual = localStorage.getItem(CHAVE_CARTELA) || "A";
+let escolhidas = [];
+let urls = {};
+
+try { urls = JSON.parse(localStorage.getItem(CHAVE_URLS) || "{}"); } catch(e) { urls = {}; }
+
+const grade = document.getElementById("grade");
+const abas = document.getElementById("abas");
+const aviso = document.getElementById("aviso");
+
+function fonteImagem(codigo){
+  return urls[codigo] || ("img/" + codigo + ".jpg");
+}
+
+function montarAbas(){
+  abas.innerHTML = "";
+  Object.keys(CARTELAS).forEach(letra => {
+    const b = document.createElement("button");
+    b.textContent = "Cartela " + letra;
+    b.setAttribute("aria-pressed", letra === cartelaAtual ? "true" : "false");
+    b.addEventListener("click", () => {
+      cartelaAtual = letra;
+      escolhidas = [];
+      localStorage.setItem(CHAVE_CARTELA, letra);
+      montarAbas(); montarGrade(); atualizarContador();
+    });
+    abas.appendChild(b);
+  });
+  document.getElementById("cartela-atual").textContent = cartelaAtual;
+}
+
+function montarGrade(){
+  grade.innerHTML = "";
+  CARTELAS[cartelaAtual].forEach(obra => {
+    const placa = document.createElement("button");
+    placa.className = "placa";
+    placa.type = "button";
+    placa.setAttribute("aria-pressed","false");
+    placa.dataset.codigo = obra.c;
+
+    const topo = document.createElement("div");
+    topo.className = "placa-topo";
+    topo.innerHTML = '<span class="codigo">' + obra.c + '</span><span class="estado">escolhida</span>';
+
+    const moldura = document.createElement("div");
+    moldura.className = "moldura";
+    const img = document.createElement("img");
+    img.src = fonteImagem(obra.c);
+    img.alt = obra.alt;
+    img.addEventListener("error", () => {
+      moldura.innerHTML = '<p class="ausente">Imagem ' + obra.c + ' ainda não carregada.<br>Salve <strong>img/' + obra.c + '.jpg</strong> ou cole o endereço no painel abaixo.</p>';
+    });
+    moldura.appendChild(img);
+
+    const ficha = document.createElement("div");
+    ficha.className = "ficha";
+    ficha.innerHTML =
+      '<span class="titulo">' + obra.t + '</span>' +
+      '<span class="autor">' + obra.a + ', ' + obra.y + '</span>' +
+      '<span class="acervo">' + obra.m + '</span>';
+
+    placa.append(topo, moldura, ficha);
+    placa.addEventListener("click", () => alternar(placa, obra.c));
+    grade.appendChild(placa);
+  });
+}
+
+function alternar(placa, codigo){
+  const i = escolhidas.indexOf(codigo);
+  if (i >= 0){
+    escolhidas.splice(i,1);
+    placa.setAttribute("aria-pressed","false");
+  } else {
+    if (escolhidas.length >= 3){
+      aviso.textContent = "Já são três. Desmarque uma antes de escolher outra.";
+      return;
+    }
+    escolhidas.push(codigo);
+    placa.setAttribute("aria-pressed","true");
+  }
+  aviso.textContent = "";
+  atualizarContador();
+}
+
+function atualizarContador(){
+  document.getElementById("n-escolhidas").textContent = escolhidas.length;
+  document.getElementById("lista-escolhidas").textContent =
+    escolhidas.length ? escolhidas.join(", ") : "nenhuma";
+}
+
+document.getElementById("btn-modo").addEventListener("click", e => {
+  const projetando = document.body.dataset.modo === "projecao";
+  document.body.dataset.modo = projetando ? "tela" : "projecao";
+  e.currentTarget.setAttribute("aria-pressed", projetando ? "false" : "true");
+  e.currentTarget.textContent = projetando ? "Modo projeção" : "Modo tela";
+});
+
+document.getElementById("btn-limpar").addEventListener("click", () => {
+  escolhidas = [];
+  grade.querySelectorAll(".placa").forEach(p => p.setAttribute("aria-pressed","false"));
+  aviso.textContent = "";
+  atualizarContador();
+});
+
+document.getElementById("btn-copiar").addEventListener("click", async () => {
+  const texto = "Cartela " + cartelaAtual + " — obras escolhidas: " +
+    (escolhidas.length ? escolhidas.join(", ") : "nenhuma");
+  try { await navigator.clipboard.writeText(texto); aviso.textContent = "Seleção copiada."; }
+  catch(e){ aviso.textContent = texto; }
+});
+
+document.getElementById("btn-imprimir").addEventListener("click", () => window.print());
+
+document.getElementById("btn-aplicar").addEventListener("click", () => {
+  const linhas = document.getElementById("urls").value.split("\n");
+  let n = 0;
+  linhas.forEach(l => {
+    const m = l.trim().match(/^([A-Da-d][1-6])\s+(\S+)$/);
+    if (m){ urls[m[1].toUpperCase()] = m[2]; n++; }
+  });
+  localStorage.setItem(CHAVE_URLS, JSON.stringify(urls));
+  montarGrade();
+  aviso.textContent = n + " endereço(s) aplicado(s) e salvo(s) neste navegador.";
+});
+
+document.getElementById("btn-apagar-urls").addEventListener("click", () => {
+  urls = {};
+  localStorage.removeItem(CHAVE_URLS);
+  document.getElementById("urls").value = "";
+  montarGrade();
+  aviso.textContent = "Endereços apagados. As imagens voltam a ser buscadas na pasta img.";
+});
+
+document.getElementById("urls").value =
+  Object.keys(urls).sort().map(k => k + " " + urls[k]).join("\n");
+
+montarAbas(); montarGrade(); atualizarContador();
+</script>
+</body>
+</html>
